@@ -63,3 +63,23 @@ export async function PATCH(request, {params}) {
         }
     );
 };
+
+export async function DELETE(request, {params}) {
+    const id = parseInt(params.id);
+
+    await prisma.post.delete({
+        where: {
+            id,
+        },
+    });
+
+    return NextResponse.json(
+        {
+            success: true,
+            message: "Data Post Deleted!"
+        },
+        {
+            status: 200,
+        }
+    );
+};
