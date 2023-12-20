@@ -35,3 +35,31 @@ export async function GET(request, {params}) {
         }
     );
 };
+
+export async function PATCH(request, {params}) {
+    const id = parseInt(params.id);
+
+    const {title, content} = await request.json();
+
+    const post = await prisma.post.update({
+        where: {
+            id,
+        },
+        data: {
+            title: title,
+            content: content,
+            updatedAt: new Date(),
+        },
+    });
+
+    return NextResponse.json(
+        {
+            success: true,
+            message: "Data Post Updated!",
+            data: post,
+        },
+        {
+            status: 200,
+        }
+    );
+};
